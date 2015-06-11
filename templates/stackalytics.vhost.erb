@@ -1,0 +1,16 @@
+<VirtualHost <%= scope.lookupvar("stackalytics::vhost_name") %>:80>
+  ServerAdmin <%= scope.lookupvar("stackalytics::serveradmin") %>
+
+  ErrorLog ${APACHE_LOG_DIR}/stackalytics-error.log
+
+  LogLevel warn
+
+  CustomLog ${APACHE_LOG_DIR}/stackalytics-access.log combined
+
+  WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/stackalytics/dashboard/web.wsgi
+
+  <Directory /usr/local/lib/python2.7/dist-packages/stackalytics/dashboard>
+    Require all granted
+  </Directory>
+
+</VirtualHost>
