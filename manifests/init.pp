@@ -18,6 +18,7 @@
 class stackalytics (
   $stackalytics_ssh_private_key,
   $cron_hour = '*/8',
+  $cron_minute = '0',
   $gerrit_ssh_user = 'stackalytics',
   $git_revision = 'master',
   $git_source = 'https://git.openstack.org/openstack/stackalytics',
@@ -109,6 +110,7 @@ class stackalytics (
     hour        => $cron_hour,
     command     => '/usr/local/bin/stackalytics-processor',
     environment => 'PATH=/usr/bin:/bin:/usr/sbin:/sbin',
+    minute      => $cron_minute,
     require     => Exec['install-stackalytics'],
   }
 
