@@ -105,13 +105,22 @@ class stackalytics (
     require     => Class['pip'],
   }
 
+  file { '/var/run/stackalytics':
+    ensure => directory,
+    group  => 'stackalytics',
+    mode   => '0644',
+    owner  => 'stackalytics',
+  }
+
   cron { 'process_stackalytics':
     user        => 'stackalytics',
     hour        => $cron_hour,
-    command     => '/usr/local/bin/stackalytics-processor',
+    command     => 'flock -n /var/run/stackalytics/stackalytics-processor.lock /usr/local/bin/stackalytics-processor',
     environment => 'PATH=/usr/bin:/bin:/usr/sbin:/sbin',
     minute      => $cron_minute,
-    require     => Exec['install-stackalytics'],
+    require     => [
+      Exec['install-stackalytics'],
+      File['/var/run/stackalytics'],
   }
 
   cron { 'stackalytics_dump_restore':
