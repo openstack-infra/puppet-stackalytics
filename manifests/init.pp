@@ -27,14 +27,10 @@ class stackalytics (
   $memcached_port = '11211',
   $vhost_name = $::fqdn,
 ) {
-  include ::httpd
-  include ::httpd::mod::wsgi
   include ::pip
   include ::logrotate
 
   $packages = [
-    'libapache2-mod-proxy-uwsgi',
-    'libapache2-mod-uwsgi',
     'uwsgi',
     'uwsgi-plugin-python',
   ]
@@ -49,6 +45,14 @@ class stackalytics (
     max_memory => $memcached_max_memory,
     tcp_port   => $memcached_port,
     udp_port   => $memcached_port,
+  }
+
+  class { '::nginx':
+    manage_repo => false,
+  }
+
+  ::nginx::resource::vhost { $vhost_name:
+    uwsgi => 'unix:///tmp/stackalytics.sock',
   }
 
   group { 'stackalytics':
@@ -199,27 +203,6 @@ class stackalytics (
     command     => 'touch /usr/local/lib/python2.7/dist-packages/stackalytics/dashboard/web.wsgi',
     path        => '/usr/local/bin:/usr/bin:/bin/',
     refreshonly => true,
-  }
-
-  ::httpd::vhost { $vhost_name:
-    port     => 80,
-    docroot  => 'MEANINGLESS ARGUMENT',
-    priority => '50',
-    template => 'stackalytics/stackalytics.vhost.erb',
-    ssl      => true,
-  }
-
-  httpd::mod { 'proxy':
-    ensure => present,
-  }
-
-  httpd::mod { 'proxy_http':
-    ensure => present,
-  }
-
-  httpd::mod { 'proxy_uwsgi':
-    ensure  => present,
-    require => Package[$packages],
   }
 
   ini_setting { 'sources_root':
