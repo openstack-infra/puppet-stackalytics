@@ -153,7 +153,6 @@ class stackalytics (
     options    => [
       'daily',
       'missingok',
-      'notifempty',
       'create 640 stackalytics adm',
       'rotate 7',
     ],
