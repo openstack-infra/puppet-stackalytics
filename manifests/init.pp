@@ -81,7 +81,7 @@ class stackalytics (
     require => File['/home/stackalytics/.ssh'],
   }
 
-  file { '/var/lib/git':
+  file { '/opt/git':
     ensure  => directory,
     owner   => 'stackalytics',
     group   => 'stackalytics',
@@ -228,7 +228,7 @@ class stackalytics (
     require => File['/etc/stackalytics/stackalytics.conf'],
     section => 'DEFAULT',
     setting => 'sources_root',
-    value   => '/var/lib/git',
+    value   => '/opt/git',
   }
 
   ini_setting { 'ssh_key_filename':
