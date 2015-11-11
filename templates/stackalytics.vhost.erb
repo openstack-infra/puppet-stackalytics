@@ -11,7 +11,7 @@
 
   Alias /static /usr/local/lib/python2.7/dist-packages/stackalytics/dashboard/static/
 
-  ProxyPass / uwsgi://127.0.0.1:3031/ retry=0
+  ProxyPass / uwsgi://127.0.0.1:3031/ connectiontimeout=5 timeout=60
   ProxyPassReverse / uwsgi://127.0.0.1:3031/
 
 </VirtualHost>
