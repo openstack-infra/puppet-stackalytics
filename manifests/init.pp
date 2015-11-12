@@ -151,6 +151,7 @@ class stackalytics (
   ::logrotate::file { 'stackalytics':
     log        => '/var/log/stackalytics/dump.log',
     options    => [
+      'compress',
       'daily',
       'missingok',
       'create 640 stackalytics adm',
