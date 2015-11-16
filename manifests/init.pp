@@ -17,7 +17,7 @@
 #
 class stackalytics (
   $stackalytics_ssh_private_key,
-  $cron_hour = '*/8',
+  $cron_hour = '*/1',
   $cron_minute = '0',
   $gerrit_ssh_user = 'stackalytics',
   $git_revision = 'master',
