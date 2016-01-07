@@ -1,0 +1,10 @@
+Code-Review+2: yolanda.robla <info@ysoft.biz>
+Code-Review+1: Clint Adams <clint@gcfm.net>
+Code-Review+2: Colleen Murphy <colleen@gazlene.net>
+Workflow+1: Colleen Murphy <colleen@gazlene.net>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Thu, 07 Jan 2016 21:51:53 +0000
+Reviewed-on: https://review.openstack.org/244268
+Project: openstack-infra/puppet-stackalytics
+Branch: refs/heads/master
