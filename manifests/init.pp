@@ -115,7 +115,7 @@ class stackalytics (
   cron { 'process_stackalytics':
     user        => 'stackalytics',
     hour        => $cron_hour,
-    command     => 'flock -n /var/run/stackalytics/stackalytics-processor.lock /usr/local/bin/stackalytics-processor',
+    command     => 'flock -n /var/run/stackalytics/stackalytics.lock /usr/local/bin/stackalytics-processor',
     environment => 'PATH=/usr/bin:/bin:/usr/sbin:/sbin',
     minute      => $cron_minute,
     require     => [
@@ -126,7 +126,7 @@ class stackalytics (
 
   cron { 'stackalytics_dump_restore':
     user        => 'stackalytics',
-    command     => '/usr/local/bin/stackalytics-dump --restore --file /var/log/stackalytics/dump.log',
+    command     => 'flock -n /var/run/stackalytics/stackalytics.lock /usr/local/bin/stackalytics-dump --restore --file /var/log/stackalytics/dump.log',
     environment => 'PATH=/usr/bin:/bin:/usr/sbin:/sbin',
     require     => [
         Exec['install-stackalytics'],
