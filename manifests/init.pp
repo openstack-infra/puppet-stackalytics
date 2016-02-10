@@ -115,7 +115,7 @@ class stackalytics (
   cron { 'process_stackalytics':
     user        => 'stackalytics',
     hour        => $cron_hour,
-    command     => 'flock -n /var/run/stackalytics/stackalytics.lock /usr/local/bin/stackalytics-processor',
+    command     => 'flock -n /var/run/stackalytics/stackalytics.lock /usr/local/bin/stackalytics-processor --log-file /var/log/stackalytics/processor.log',
     environment => 'PATH=/usr/bin:/bin:/usr/sbin:/sbin',
     minute      => $cron_minute,
     require     => [
@@ -140,7 +140,10 @@ class stackalytics (
   }
 
   file { '/var/log/stackalytics':
-    ensure => directory,
+    ensure  => directory,
+    group   => 'adm',
+    owner   => 'stackalytics',
+    require => User['stackalytics'],
   }
 
   file { '/var/log/stackalytics/dump.log':
@@ -159,6 +162,18 @@ class stackalytics (
     ],
     postrotate => '/usr/local/bin/stackalytics-dump --file /var/log/stackalytics/dump.log',
     require    => File['/var/log/stackalytics/dump.log'],
+  }
+
+  ::logrotate::file { 'stackalytics-processor':
+    log     => '/var/log/stackalytics/processor.log',
+    options => [
+      'compress',
+      'daily',
+      'missingok',
+      'create 640 stackalytics adm',
+      'rotate 7',
+    ],
+    require => File['/var/log/stackalytics'],
   }
 
   file { '/etc/stackalytics/stackalytics.conf':
