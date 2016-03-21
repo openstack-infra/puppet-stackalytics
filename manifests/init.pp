@@ -17,15 +17,15 @@
 #
 class stackalytics (
   $stackalytics_ssh_private_key,
-  $cron_hour = '*/1',
-  $cron_minute = '0',
-  $gerrit_ssh_user = 'stackalytics',
-  $git_revision = 'master',
-  $git_source = 'https://git.openstack.org/openstack/stackalytics',
-  $memcached_listen_ip = '127.0.0.1',
+  $cron_hour            = '*/1',
+  $cron_minute          = '0',
+  $gerrit_ssh_user      = 'stackalytics',
+  $git_revision         = 'master',
+  $git_source           = 'https://git.openstack.org/openstack/stackalytics',
+  $memcached_listen_ip  = '127.0.0.1',
   $memcached_max_memory = '4096',
-  $memcached_port = '11211',
-  $vhost_name = $::fqdn,
+  $memcached_port       = '11211',
+  $vhost_name           = $::fqdn,
 ) {
   include ::httpd
   include ::httpd::mod::wsgi
