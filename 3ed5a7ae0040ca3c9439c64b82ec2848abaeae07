@@ -1,0 +1,9 @@
+Code-Review+2: yolanda.robla <yolanda.robla-mota@hpe.com>
+Code-Review+2: Spencer Krum <nibz@spencerkrum.com>
+Workflow+1: Spencer Krum <nibz@spencerkrum.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 30 Mar 2016 19:13:32 +0000
+Reviewed-on: https://review.openstack.org/295362
+Project: openstack-infra/puppet-stackalytics
+Branch: refs/heads/master
