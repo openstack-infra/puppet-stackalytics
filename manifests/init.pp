@@ -26,6 +26,11 @@ class stackalytics (
   $memcached_max_memory = '4096',
   $memcached_port       = '11211',
   $vhost_name           = $::fqdn,
+  $redis_port           = '6378',
+  $redis_max_memory     = '1gb',
+  $redis_bind           = '127.0.0.1',
+  $redis_version        = '2.8.4',
+  $redis_password       = undef,
 ) {
   include ::httpd
   include ::httpd::mod::wsgi
@@ -49,6 +54,14 @@ class stackalytics (
     max_memory => $memcached_max_memory,
     tcp_port   => $memcached_port,
     udp_port   => $memcached_port,
+  }
+
+  class { '::redis':
+    redis_port       => $redis_port,
+    redis_max_memory => $redis_max_memory,
+    redis_bind       => $redis_bind,
+    redis_password   => $redis_password,
+    version          => $redis_version ,
   }
 
   group { 'stackalytics':
