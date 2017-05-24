@@ -35,6 +35,8 @@ class stackalytics (
   $packages = [
     'libapache2-mod-proxy-uwsgi',
     'libapache2-mod-uwsgi',
+    'libffi-dev',
+    'libssl-dev',
     'uwsgi',
     'uwsgi-plugin-python',
   ]
